@@ -19,7 +19,7 @@ jobs:
                 }
               }
             ' --jq '.data.repository.pullRequests.nodes')"
-          echo ::set-output name=pull_requests::$pullRequests
+          echo "pull_requests=$pullRequests" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: change pullRequest's D-day
