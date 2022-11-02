@@ -11,4 +11,4 @@ jobs:
       - name: owner
         run: echo $GITHUB_REPOSITORY_OWNER
       - name: repository
-        run: echo $GITHUB_REPOSITORY
+        run: echo (echo $GITHUB_REPOSITORY | cut -d'/' -f2)
