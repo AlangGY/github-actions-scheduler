@@ -14,7 +14,7 @@
 PR의 D-{num}을 매일마다 '오늘'을 기준으로 갱신해줬으면 좋겠다.
 
 
-## Github Actions: D-Day scheduler
+## 그래서 나온... Github Actions: D-Day scheduler
 
 ### 시연
 
