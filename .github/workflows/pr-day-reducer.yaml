@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron: "47 2 * * *"
+    - cron: "0 3 * * *"
 
 jobs:
   day-reducer:
