@@ -36,11 +36,10 @@ jobs:
                   fi
                   echo "prNumber:" $prNumber
                   echo $label '->' $nextLabel
-                  echo $ACTION_REPOSITORY
-                  echo $(gh pr edit $prNumber --remove-label $label --add-label $nextLabel --repo $ACTION_REPOSITORY)
+                  echo ${{ env.GITHUB_ACTION_REPOSITORY }}
+                  echo $(gh pr edit $prNumber --remove-label $label --add-label $nextLabel --repo ${{ env.GITHUB_ACTION_REPOSITORY }})
               fi
             done
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACTION_REPOSITORY: ${{ github.action_repository }}
