@@ -36,7 +36,7 @@ jobs:
                   fi
                   echo "prNumber:" $prNumber
                   echo $label '->' $nextLabel
-                  echo $(gh pr edit $prNumber --remove-label $label --add-label $nextLabel)
+                  echo $(gh pr edit $prNumber --remove-label $label --add-label $nextLabel --repo ${github.action_repository})
               fi
             done
           done
