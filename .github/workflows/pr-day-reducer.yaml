@@ -9,7 +9,7 @@ jobs:
       - name: query pullRequests
         id: query_pull_requests
         run: |
-          pullRequests="$(gh api graphql -F owner=AlangGY -F name=github-actions-scheduler -f query='
+          pullRequests="$(gh api graphql -F owner=$GITHUB_REPOSITORY_OWNER -F name=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2) -f query='
             query($name: String!, $owner: String!) {
               repository(owner: $owner, name: $name) {
                 pullRequests(last:100) {  nodes { number , labels(last: 20) { nodes { name } }  } }
@@ -33,7 +33,7 @@ jobs:
                       nextLabel="D"-$((${label:2} - 1))
                   fi
                   echo "change prNumber:" $prNumber "'s label from" $label "to" $nextLabel
-                  echo $(gh pr edit $prNumber --remove-label $label --add-label $nextLabel --repo AlangGY/github-actions-scheduler)
+                  echo $(gh pr edit $prNumber --remove-label $label --add-label $nextLabel --repo $GITHUB_REPOSITORY)
               fi
             done
           done
