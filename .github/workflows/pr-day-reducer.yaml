@@ -28,7 +28,8 @@ jobs:
             prNumber=$(echo $pr | cut -d'_' -f1)
             prLabels=$(echo $pr | cut -d'_' -f2-)
             for label in $(echo $prLabels | sed 's/_/\n/g'); do
-              if [[ $label =~ ["^D-."] ]]; then
+              echo "check" $prNumber
+              if [[ $label =~ ["^D-"] ]]; then
                   if [[ $label == "D-0" ]]; then
                       nextLabel="expired"
                   else
