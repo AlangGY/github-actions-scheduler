@@ -36,6 +36,7 @@ jobs:
                   fi
                   echo "prNumber:" $prNumber
                   echo $label '->' $nextLabel
+                  echo $ACTION_REPOSITORY
                   echo $(gh pr edit $prNumber --remove-label $label --add-label $nextLabel --repo $ACTION_REPOSITORY)
               fi
             done
