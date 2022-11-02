@@ -1,0 +1,15 @@
+on
+  push:
+  branches:
+    - 'main'
+    - 'releases/**'
+
+
+jobs:
+  test-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: owner
+        run: echo $GITHUB_REPOSITORY_OWNER
+      - name: repository
+        run: echo $GITHUB_REPOSITORY
