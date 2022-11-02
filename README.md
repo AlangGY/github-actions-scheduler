@@ -25,4 +25,6 @@ PR의 D-{num}을 매일마다 '오늘'을 기준으로 갱신해줬으면 좋겠
 - [pr-day-reducer.yaml](./.github/workflows/pr-day-reducer.yaml) 파일을 적용할 레포지토리 main브랜치의 `.github/workflows/`에 Copy&Paste
 
 
-----
+시연
+![image](https://user-images.githubusercontent.com/75013334/199412133-8af3c42c-7ab6-4263-b42e-5115321dabef.png)
+
