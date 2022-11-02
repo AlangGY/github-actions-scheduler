@@ -1,9 +1,8 @@
-on
+on:
   push:
   branches:
-    - 'main'
-    - 'releases/**'
-
+    - "main"
+    - "releases/**"
 
 jobs:
   test-workflow:
