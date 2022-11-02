@@ -36,8 +36,7 @@ jobs:
                   fi
                   echo "prNumber:" $prNumber
                   echo $label '->' $nextLabel
-                  echo ${{ env.GITHUB_ACTION_REPOSITORY }}
-                  echo $(gh pr edit $prNumber --remove-label $label --add-label $nextLabel --repo ${{ env.GITHUB_ACTION_REPOSITORY }})
+                  echo $(gh pr edit $prNumber --remove-label $label --add-label $nextLabel --repo AlangGY/github-actions-scheduler)
               fi
             done
           done
