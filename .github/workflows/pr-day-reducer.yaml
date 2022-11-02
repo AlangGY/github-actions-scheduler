@@ -1,9 +1,6 @@
 on:
-  push:
-    branches:
-      - "main"
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "40 11 * * *"
 
 jobs:
   day-reducer:
@@ -27,8 +24,8 @@ jobs:
           for pr in $(echo ${{ steps.query_pull_requests.outputs.pull_requests }} | sed 's/_@_/\n/g' | sed 's/@_/\n/g' ); do
             prNumber=$(echo $pr | cut -d'_' -f1)
             prLabels=$(echo $pr | cut -d'_' -f2-)
+            echo "check" $prNumber
             for label in $(echo $prLabels | sed 's/_/\n/g'); do
-              echo "check" $prNumber
               if [[ $label =~ ^D- ]]; then
                   if [[ $label == "D-0" ]]; then
                       nextLabel="expired"
