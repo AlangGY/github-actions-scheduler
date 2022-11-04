@@ -12,7 +12,7 @@ jobs:
           pullRequests="$(gh api graphql -F owner=$GITHUB_REPOSITORY_OWNER -F name=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2) -f query='
             query($name: String!, $owner: String!) {
               repository(owner: $owner, name: $name) {
-                pullRequests(last:100) {  nodes { number , labels(last: 20) { nodes { name } }  } }
+                pullRequests(last:100, states: OPEN) {  nodes { number , labels(last: 20) { nodes { name } }  } }
               }
             }
           ' --jq '[(.data.repository.pullRequests.nodes.[] | "@", .number , .labels.nodes[].name)] | join("_")')"

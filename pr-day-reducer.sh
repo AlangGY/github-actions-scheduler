@@ -2,7 +2,7 @@
 pullRequests="$(gh api graphql -F owner=AlangGY -F name=github-actions-scheduler -f query='
             query($name: String!, $owner: String!) {
               repository(owner: $owner, name: $name) {
-                pullRequests(last:100) {  nodes { number , labels(last: 20) { nodes { name } }  } }
+                pullRequests(last:100, states: OPEN) {  nodes { number , labels(last: 20) { nodes { name } }  } }
               }
             }
           ' --jq '[(.data.repository.pullRequests.nodes.[] | "@", .number , .labels.nodes[].name)] | join("_")')"
