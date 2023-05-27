@@ -1,3 +1,4 @@
+name: PR D-Day Scheduler
 on:
   schedule:
     - cron: "0 15 * * *"
@@ -5,6 +6,8 @@ on:
 jobs:
   day-reducer:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
       - name: query pullRequests
         id: query_pull_requests
@@ -21,21 +24,23 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: change pullRequest's D-day
         run: |
-          for pr in $(echo ${{ steps.query_pull_requests.outputs.pull_requests }} | sed 's/_@_/\n/g' | sed 's/@_/\n/g' ); do
-            prNumber=$(echo $pr | cut -d'_' -f1)
-            prLabels=$(echo $pr | cut -d'_' -f2-)
-            echo "check" $prNumber
-            for label in $(echo $prLabels | sed 's/_/\n/g'); do
+          IFS=$'\n' # Set the input field separator to newline to preserve labels with spaces
+          for pr in $(echo "${{ steps.query_pull_requests.outputs.pull_requests }}" | sed 's/_@_/\n/g' | sed 's/@_/\n/g'); do
+            prNumber=$(echo "$pr" | cut -d'_' -f1)
+            prLabels=$(echo "$pr" | cut -d'_' -f2-)
+            echo "check" "$prNumber"
+            for label in $(echo "$prLabels" | sed 's/_/\n/g'); do
               if [[ $label =~ ^D- ]]; then
-                  if [[ $label == "D-0" ]]; then
-                      nextLabel="expired"
-                  else
-                      nextLabel="D"-$((${label:2} - 1))
-                  fi
-                  echo "change prNumber:" $prNumber "'s label from" $label "to" $nextLabel
-                  echo $(gh pr edit $prNumber --remove-label $label --add-label $nextLabel --repo $GITHUB_REPOSITORY)
+                if [[ $label == "D-0" ]]; then
+                  nextLabel="expired"
+                else
+                  nextLabel="D-$(( ${label:2} - 1 ))"
+                fi
+                echo "change prNumber:" "$prNumber"' label from' "$label"' to' "$nextLabel"
+                echo "$(gh pr edit "$prNumber" --remove-label "$label" --add-label "$nextLabel" --repo "$GITHUB_REPOSITORY")"
               fi
             done
+            sleep 0.5
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
